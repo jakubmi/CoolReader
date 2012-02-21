@@ -1,6 +1,8 @@
 CoolReader 3 - free e-book reader
 (c) Vadim Lopatin, 1998-2009
 
+Will add pdf support and fix "autoscroll" - jm
+
 LICENSE: All source codes (except thirdparty directory) 
 are provided under the terms of GNU GPL license, version 2
 
