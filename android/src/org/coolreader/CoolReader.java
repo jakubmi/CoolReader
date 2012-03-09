@@ -6,12 +6,12 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.lang.reflect.Field;
 
+import org.coolreader.R;
 import org.coolreader.crengine.BackgroundThread;
 import org.coolreader.crengine.BaseDialog;
 import org.coolreader.crengine.BookmarksDlg;
 import org.coolreader.crengine.CRDB;
 import org.coolreader.crengine.Engine;
-import org.coolreader.crengine.Engine.HyphDict;
 import org.coolreader.crengine.FileBrowser;
 import org.coolreader.crengine.FileInfo;
 import org.coolreader.crengine.History;
@@ -20,6 +20,7 @@ import org.coolreader.crengine.Properties;
 import org.coolreader.crengine.ReaderAction;
 import org.coolreader.crengine.ReaderView;
 import org.coolreader.crengine.Scanner;
+import org.coolreader.crengine.Engine.HyphDict;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -389,7 +390,6 @@ public class CoolReader extends Activity
     	// Hack
     	//if ( backlightControl.isHeld() )
     	BackgroundThread.guiExecutor.execute(new Runnable() {
-			@Override
 			public void run() {
 				try {
 			        Window wnd = getWindow();

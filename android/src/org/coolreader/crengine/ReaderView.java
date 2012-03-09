@@ -293,7 +293,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
     }
     
 	private int lastResizeTaskId = 0;
-	@Override
+	
 	protected void onSizeChanged(final int w, final int h, int oldw, int oldh) {
 		Log.i("cr3", "onSizeChanged("+w + ", " + h +")");
 		super.onSizeChanged(w, h, oldw, oldh);
@@ -431,7 +431,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 	private ReaderAction currentSingleClickAction = null;
 	private long currentDoubleClickActionStart = 0;
 	private int currentDoubleClickActionKeyCode = 0;
-	@Override
+	
 	public boolean onKeyUp(int keyCode, final KeyEvent event) {
 		if ( keyCode==KeyEvent.KEYCODE_VOLUME_DOWN || keyCode==KeyEvent.KEYCODE_VOLUME_UP )
 			if ( !enableVolumeKeys )
@@ -520,7 +520,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 
 	
 	
-	@Override
+	
 	protected void onFocusChanged(boolean gainFocus, int direction,
 			Rect previouslyFocusedRect) {
 		stopTracking();
@@ -549,7 +549,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 		return false;
 	}
 
-	@Override
+	
 	public boolean onKeyMultiple(int keyCode, int repeatCount, KeyEvent event) {
 		Log.v("cr3", "onKeyMultiple( keyCode=" + keyCode + ", repeatCount=" + repeatCount + ", event=" + event);
 		return super.onKeyMultiple(keyCode, repeatCount, event);
@@ -560,7 +560,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 	private ReaderAction actionToRepeat = null;
 	private boolean repeatActionActive = false;
 	
-	@Override
+	
 	public boolean onKeyDown(int keyCode, final KeyEvent event) {
 		backKeyDownHere = false;
 		if ( event.getRepeatCount()==0 )
@@ -669,7 +669,6 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 		sel.endX = endX;
 		sel.endY = endY;
 		mEngine.execute(new Task() {
-			@Override
 			public void work() throws Exception {
 				if ( myId != nextUpdateId && !isUpdateEnd )
 					return;
@@ -683,7 +682,6 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 				}
 			}
 
-			@Override
 			public void done() {
 				if ( isUpdateEnd ) {
 					String text = sel.text;
@@ -748,7 +746,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 		});
 	}
 	
-	@Override
+	
 	public boolean onTouchEvent(MotionEvent event) {
 		
 		if ( !isTouchScreenEnabled ) {
@@ -794,7 +792,6 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 				currentDoubleTapActionStart = android.os.SystemClock.uptimeMillis();
 				final long myStart = currentDoubleTapActionStart;
 				BackgroundThread.instance().postGUI(new Runnable() {
-					@Override
 					public void run() {
 						if ( currentDoubleTapActionStart == myStart ) {
 							onTapZone( zone, false );
@@ -830,7 +827,6 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 			}
 			final int myId = ++longTouchId;
 			mBackThread.postGUI( new Runnable() {
-				@Override
 				public void run() {
 					if ( myId==longTouchId ) {
 						touchEventIgnoreNextUp = true;
@@ -882,7 +878,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 		//return super.onTouchEvent(event);
 	}
 
-	@Override
+	
 	public boolean onTrackballEvent(MotionEvent event) {
 		Log.d("cr3", "onTrackballEvent(" + event + ")");
 		if ( mSettings.getBool(PROP_APP_TRACKBALL_DISABLED, false) ) {
@@ -1581,7 +1577,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 			bitmap = null;
 			position = null;
 		}
-		@Override
+		
 		public String toString() {
 			return "BitmapInfo [position=" + position + "]";
 		}
@@ -1748,7 +1744,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 				draw();
 			}
 		}
-		@Override
+		
 		public void done()
 		{
 			BackgroundThread.ensureGUI();
@@ -1762,7 +1758,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
    			if ( doneHandler!=null )
    				doneHandler.run();
 		}
-		@Override
+		
 		public void fail(Exception e) {
    			mEngine.hideProgress();
 		}
@@ -1776,7 +1772,6 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 	}
 	
 	// SurfaceView callbacks
-	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
 		Log.i("cr3", "surfaceChanged(" + width + ", " + height + ")");
@@ -1784,14 +1779,12 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 	}
 
 	boolean mSurfaceCreated = false;
-	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
 		Log.i("cr3", "surfaceCreated()");
 		mSurfaceCreated = true;
 		drawPage();
 	}
 
-	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		Log.i("cr3", "surfaceDestroyed()");
 		mSurfaceCreated = false;
@@ -1814,7 +1807,6 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 	private void animatePageFlip( final int dir, final Runnable onFinishHandler )
 	{
 		BackgroundThread.backgroundExecutor.execute(new Runnable() {
-			@Override
 			public void run() {
 				BackgroundThread.ensureBackground();
 				if ( currentAnimation==null ) {
@@ -1899,7 +1891,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 		int txcolor = mSettings.getColor(PROP_FONT_COLOR, Color.BLACK);
 		final int color = (txcolor & 0xFFFFFF) | (HILITE_RECT_ALPHA<<24);
 		BackgroundThread.backgroundExecutor.execute(new Runnable() {
-			@Override
+			
 			public void run() {
 				if ( myHiliteId != nextHiliteId || (!hilite && hiliteRect==null) )
 					return;
@@ -1914,7 +1906,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 						hiliteRect = null;
 					if ( rc!=null )
 					drawCallback( new DrawCanvasCallback() {
-						@Override
+						
 						public void drawTo(Canvas canvas) {
 				    		if ( mInitialized && mCurrentPageInfo!=null ) {
 				        		Log.d("cr3", "onDraw() -- drawing page image");
@@ -1943,7 +1935,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 	private void scheduleUnhilite( int delay ) {
 		final int myHiliteId = nextHiliteId;
 		mBackThread.postGUI(new Runnable() {
-			@Override
+			
 			public void run() {
 				if ( myHiliteId == nextHiliteId && hiliteRect!=null )
 					unhiliteTapZone(); 
@@ -1955,7 +1947,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 	{
 		if (DEBUG_ANIMATION) Log.d("cr3", "startAnimation("+startX + ", " + startY+")");
 		BackgroundThread.backgroundExecutor.execute(new Runnable() {
-			@Override
+			
 			public void run() {
 				BackgroundThread.ensureBackground();
 				PositionProperties currPos = getPositionPropsInternal(null);
@@ -1986,7 +1978,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 		if (DEBUG_ANIMATION) Log.d("cr3", "updateAnimation("+x + ", " + y+")");
 		final int serial = ++updateSerialNumber;
 		BackgroundThread.backgroundExecutor.execute(new Runnable() {
-			@Override
+			
 			public void run() {
 				if ( currentAnimation!=null ) {
 					currentAnimation.update(x, y);
@@ -2007,7 +1999,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 	{
 		if (DEBUG_ANIMATION) Log.d("cr3", "stopAnimation("+x+", "+y+")");
 		BackgroundThread.backgroundExecutor.execute(new Runnable() {
-			@Override
+			
 			public void run() {
 				if ( currentAnimation!=null ) {
 					currentAnimation.stop(x, y);
@@ -2022,7 +2014,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 	{
 		final int serial = ++animationSerialNumber; 
 		BackgroundThread.backgroundExecutor.execute(new Runnable() {
-			@Override
+			
 			public void run() {
 				if ( serial!=animationSerialNumber )
 					return;
@@ -2125,7 +2117,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 		public void draw()
 		{
 			drawCallback( new DrawCanvasCallback() {
-				@Override
+				
 				public void drawTo(Canvas c) {
 					draw(c);
 				}
@@ -2173,7 +2165,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 			currentAnimation = this;
 		}
 		
-		@Override
+		
 		public void stop(int x, int y) {
 			//if ( started ) {
 				if ( y!=-1 ) {
@@ -2187,7 +2179,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 			close();
 		}
 
-		@Override
+		
 		public void move( int duration, boolean accelerated  ) {
 			if ( duration>0 ) {
 				int steps = (int)(duration / getAvgAnimationDrawDuration()) + 2;
@@ -2205,7 +2197,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 			draw();
 		}
 
-		@Override
+		
 		public void update(int x, int y) {
 			int delta = startY - y;
 			pointerDestPos = pointerStartPos + delta;
@@ -2312,7 +2304,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 			Log.d("cr3", "PageViewAnimation -- created in " + duration + " millis");
 		}
 		
-		@Override
+		
 		public void move( int duration, boolean accelerated ) {
 			if ( duration > 0 ) {
 				int steps = (int)(duration / getAvgAnimationDrawDuration()) + 2;
@@ -2330,7 +2322,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 			draw();
 		}
 
-		@Override
+		
 		public void stop(int x, int y) {
 			if (DEBUG_ANIMATION) Log.v("cr3", "PageViewAnimation.stop(" + x + ", " + y + ")");
 			//if ( started ) {
@@ -2370,7 +2362,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 			//	drawPage();
 		}
 
-		@Override
+		
 		public void update(int x, int y) {
 			if (DEBUG_ANIMATION) Log.v("cr3", "PageViewAnimation.update(" + x + ", " + y + ")");
 			int delta = direction>0 ? startX - x : x - startX;
@@ -2681,14 +2673,14 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 	protected void draw()
 	{
 		drawCallback(new DrawCanvasCallback() {
-			@Override
+			
 			public void drawTo(Canvas c) {
 				doDraw(c);
 			}
 		}, null);
 	}
 	
-    @Override 
+     
     protected void onDraw(Canvas canvas) {
     	try {
     		Log.d("cr3", "onDraw() called");
@@ -2759,7 +2751,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 
     	Bookmark bmk;
     	
-		@Override
+		
 		public void done() {
 	    	if ( bmk!=null && mBookInfo!=null ) {
 	        	bmk.setTimeStamp(System.currentTimeMillis());
@@ -2845,7 +2837,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
     	}
     }
     
-    @Override
+    
 	protected void onDetachedFromWindow() {
 		// TODO Auto-generated method stub
 		super.onDetachedFromWindow();
@@ -3025,7 +3017,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
 	    	});
     }
     
-    @Override
+    
     public void finalize()
     {
     	Log.w("cr3", "ReaderView.finalize() is called");
@@ -3047,7 +3039,7 @@ public class ReaderView extends SurfaceView implements android.view.SurfaceHolde
         
         mBackThread.postBackground(new Runnable() {
 
-			@Override
+			
 			public void run() {
 				Log.d("cr3", "ReaderView - in background thread: calling createInternal()");
 				createInternal();

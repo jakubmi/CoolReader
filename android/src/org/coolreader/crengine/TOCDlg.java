@@ -170,7 +170,6 @@ public class TOCDlg extends BaseDialog {
 		this.mListView = new ListView(getContext());
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
-			@Override
 			public void onItemClick(AdapterView<?> listview, View view,
 					int position, long id) {
 				TOCItem item = mItems.get(position);
@@ -184,7 +183,6 @@ public class TOCDlg extends BaseDialog {
 		});
 		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
-			@Override
 			public boolean onItemLongClick(AdapterView<?> listview, View view,
 					int position, long id) {
 				TOCItem item = mItems.get(position);

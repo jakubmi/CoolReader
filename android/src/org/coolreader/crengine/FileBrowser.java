@@ -49,8 +49,6 @@ public class FileBrowser extends ListView {
         //registerForContextMenu(this);
         //final FileBrowser _this = this;
         setOnItemLongClickListener(new OnItemLongClickListener() {
-
-			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int position, long id) {
 				Log.d("cr3", "onItemLongClick("+position+")");

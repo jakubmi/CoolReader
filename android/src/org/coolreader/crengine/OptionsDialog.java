@@ -257,7 +257,6 @@ public class OptionsDialog extends BaseDialog implements TabContentFactory {
 			labelView.setText(label);
 			valueView.setChecked(getValueBoolean());
 			valueView.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-					@Override
 					public void onCheckedChanged(CompoundButton arg0,
 							boolean checked) {
 //						mProperties.setBool(property, checked);
@@ -412,7 +411,6 @@ public class OptionsDialog extends BaseDialog implements TabContentFactory {
 			longtext.setText(getString(longAction.nameId));
 			view.setLongClickable(true);
 			view.setOnClickListener(new View.OnClickListener () {
-				@Override
 				public void onClick(View v) {
 					// TODO: i18n
 					ActionOption option = new ActionOption(getString(R.string.options_app_tap_action_short), propName, true, false);
@@ -426,7 +424,6 @@ public class OptionsDialog extends BaseDialog implements TabContentFactory {
 				}
 			});
 			view.setOnLongClickListener(new View.OnLongClickListener () {
-				@Override
 				public boolean onLongClick(View v) {
 					// TODO: i18n
 					ActionOption option = new ActionOption(getString(R.string.options_app_tap_action_long), longPropName, true, true);
@@ -553,7 +550,6 @@ public class OptionsDialog extends BaseDialog implements TabContentFactory {
 			boolean isSelected = item.value!=null && currValue!=null && item.value.equals(currValue) ;//getSelectedItemIndex()==position;
 			cb.setChecked(isSelected);
 			cb.setOnClickListener(new View.OnClickListener() {
-				@Override
 				public void onClick(View v) {
 					listView.getOnItemClickListener().onItemClick(listView, listView, position, 0);
 //					mProperties.setProperty(property, item.value);

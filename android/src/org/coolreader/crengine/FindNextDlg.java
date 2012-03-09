@@ -52,7 +52,6 @@ public class FindNextDlg {
 		mWindow = new PopupWindow( mAnchor.getContext() );
 		mWindow.setTouchInterceptor(new OnTouchListener() {
 			
-			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				if ( event.getAction()==MotionEvent.ACTION_OUTSIDE ) {
 					mReaderView.clearSelection();
@@ -118,7 +117,6 @@ public class FindNextDlg {
 		});
 
 		mWindow.setOnDismissListener(new OnDismissListener() {
-			@Override
 			public void onDismiss() {
 				mReaderView.clearSelection();
 			}
